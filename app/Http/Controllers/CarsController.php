@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
 use Illuminate\Http\Request;
+
 
 class CarsController extends Controller
 {
@@ -24,7 +26,7 @@ class CarsController extends Controller
      */
     public function create()
     {
-        //
+        return view('cars.create');
     }
 
     /**
@@ -35,7 +37,11 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form_data = $request;
+
+        $newCar = new Car();
+        // $newCar->fill($form_data); DA SISTEMARE
+        $newCar->save();
     }
 
     /**

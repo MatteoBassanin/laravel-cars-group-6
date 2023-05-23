@@ -10,14 +10,12 @@ use Database\Seeders\CarsTableSeeder;
 class PageController extends Controller
 {
 
-public function index(){
+    public function index()
+    {
 
-    $cars = Car::all();
+        $cars = Car::all();
 
-    return view('home', compact('cars'));
-
-
-}
-
-
+        return redirect()->route('cars.index', compact('cars'));
+        return view('home', compact('cars'));
+    }
 }
