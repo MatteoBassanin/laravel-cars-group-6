@@ -15,8 +15,10 @@
 
 </head>
 
-<body>
+<body class="p-5">
 
+    @include('partials.errors')
+    @include('partials.messages')
     @yield('content')
 
 </body>

@@ -21,6 +21,11 @@
                                 <td>{{ $car->brand }}</td>
                                 <td>{{ $car->model }}</td>
                                 <td>{{ $car->price }}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{{ route('cars.show', ['car' => $car->id]) }}">Show</a>
+                                    <a class="btn btn-warning" href="{{ route('cars.edit', ['car' => $car->id]) }}">Edit</a>
+                                </td>
+
                             </tr>
                         @endforeach
 

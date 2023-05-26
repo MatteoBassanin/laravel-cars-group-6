@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCarsRequest;
+use App\Http\Requests\UpdateCarsRequest;
 use App\Models\Car;
 use Illuminate\Http\Request;
 
@@ -35,47 +37,53 @@ class CarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCarsRequest $request)
     {
-        $form_data = $request;
+        $form_data = $request->all();
 
         $newCar = new Car();
-        // $newCar->fill($form_data); DA SISTEMARE
+        $newCar->fill($form_data);
         $newCar->save();
+
+        return redirect()->route('cars.show', ['car' => $newCar->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Car $car
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Car $car)
     {
-        //
+        return view('cars.show', compact('car'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Car $car
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Car $car)
     {
-        //
+        return view('cars.edit', compact('car'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Car $car
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCarsRequest $request, Car $car)
     {
-        //
+        $form_data = $request->all();
+
+        $car->update($form_data);
+
+        return redirect()->route('cars.show', ['car' => $car->id]);
     }
 
     /**
