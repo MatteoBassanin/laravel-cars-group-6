@@ -29,6 +29,7 @@ class UpdateCarsRequest extends FormRequest
             'price' => 'numeric|decimal:0,2|required',
             'cc' => 'required|numeric',
             'year_release' => 'required|date',
+            'optionals' => 'exists:optionals,id'
         ];
     }
 }

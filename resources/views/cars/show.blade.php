@@ -6,6 +6,19 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">{{ $car->brand }}</li>
                 <li class="list-group-item">{{ $car->model }}</li>
+                <li class="list-group-item">
+                    <ul>
+                        @forelse ($car->optionals as $optional)
+                            <li>
+                                <span>{{ $optional->name }}</span>
+                            </li>
+                        @empty
+                            <li>
+                                <span>Nessun optional specificato</span>
+                            </li>
+                        @endforelse
+                    </ul>
+                </li>
                 <li class="list-group-item">{{ $car->price }}</li>
                 <li class="list-group-item">{{ $car->cc }}</li>
                 <li class="list-group-item">{{ $car->year_release }}</li>

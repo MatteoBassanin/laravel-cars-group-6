@@ -6,7 +6,7 @@ use App\Http\Requests\StoreCarsRequest;
 use App\Http\Requests\UpdateCarsRequest;
 use App\Models\Car;
 use Illuminate\Http\Request;
-
+use App\Models\Optional;
 
 class CarsController extends Controller
 {
@@ -28,7 +28,8 @@ class CarsController extends Controller
      */
     public function create()
     {
-        return view('cars.create');
+        $optionals = Optional::all();
+        return view('cars.create', compact('optionals'));
     }
 
     /**
@@ -39,11 +40,14 @@ class CarsController extends Controller
      */
     public function store(StoreCarsRequest $request)
     {
-        $form_data = $request->all();
+        $form_data = $request->validated();
 
-        $newCar = new Car();
-        $newCar->fill($form_data);
-        $newCar->save();
+        $newCar = Car::create($form_data);
+
+        if ($newCar->has('optionals')) {
+            $newCar->optionals()->attach($request->optionals);
+        }
+
 
         return redirect()->route('cars.show', ['car' => $newCar->id]);
     }
@@ -67,7 +71,8 @@ class CarsController extends Controller
      */
     public function edit(Car $car)
     {
-        return view('cars.edit', compact('car'));
+        $optionals = Optional::all();
+        return view('cars.edit', compact('car', 'optionals'));
     }
 
     /**
@@ -79,7 +84,9 @@ class CarsController extends Controller
      */
     public function update(UpdateCarsRequest $request, Car $car)
     {
-        $form_data = $request->all();
+        $form_data = $request->validated();
+
+        $car->optionals()->sync($request->optionals);
 
         $car->update($form_data);
 

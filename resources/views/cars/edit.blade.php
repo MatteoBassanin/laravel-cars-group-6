@@ -56,6 +56,29 @@
                 </div>
             @enderror
         </div>
+
+        <div class="mb-3">
+            <div class="mb-3">Optionals:</div>
+            <div class="btn-group">
+                @foreach ($optionals as $optional)
+                    @if ($errors->any())
+                        <input type="checkbox" class="btn-check" @if (in_array($optional->id, old('optionals', []))) checked @endif
+                            name="optionals[]" value="{{ $optional->id }}" id="optional_{{ $optional->id }}">
+                    @else
+                        <input type="checkbox" class="btn-check" @if ($car->optionals->contains($optional->id)) checked @endif
+                            name="optionals[]" value="{{ $optional->id }}" id="optional_{{ $optional->id }}">
+                    @endif
+                    <label class="btn btn-outline-primary"
+                        for="optional_{{ $optional->id }}">{{ $optional->name }}</label>
+                @endforeach
+                @error('optionals')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Save</button>
         <a class="btn btn-danger" href="{{ route('cars.index') }}">Go back</a>
     </form>

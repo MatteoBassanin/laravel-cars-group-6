@@ -10,6 +10,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Brand</th>
                             <th scope="col">Model</th>
+                            <th scope="col">Optionals</th>
                             <th scope="col">Price</th>
                             <th scope="col">Options</th>
                         </tr>
@@ -20,6 +21,15 @@
                                 <th scope="row">{{ $car->id }}</th>
                                 <td>{{ $car->brand }}</td>
                                 <td>{{ $car->model }}</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        @forelse ($car->optionals as $optional)
+                                            <li>{{ $optional->name }}</li>
+                                        @empty
+                                            <span>Nessun optional specificato</span>
+                                        @endforelse
+                                    </ul>
+                                </td>
                                 <td>{{ $car->price }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{{ route('cars.show', ['car' => $car->id]) }}">Show</a>
