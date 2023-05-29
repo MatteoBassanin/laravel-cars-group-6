@@ -12,7 +12,7 @@ deleteButtons.forEach(button => {
         const modal = document.getElementById('confirmDeleteModal');
         const bootstrapModal = new bootstrap.Modal(modal);
         bootstrapModal.show();
-        const confirmDeleteBtn = modal.querySelector('.btn.btn-danger')
+        const confirmDeleteBtn = modal.querySelector('.btn.btn-success')
         confirmDeleteBtn.addEventListener('click', () => {
             button.parentElement.submit();
         });
