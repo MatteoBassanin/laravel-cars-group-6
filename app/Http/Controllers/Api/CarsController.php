@@ -12,7 +12,7 @@ class CarsController extends Controller
     {
         $cars = Car::all();
 
-        if ($cars) {
+        if (count($cars) <> 0) {
             return response()->json([
                 'success' => true,
                 'cars' => $cars
